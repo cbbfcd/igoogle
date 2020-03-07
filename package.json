@@ -1,0 +1,30 @@
+{
+  "name": "igoogle",
+  "version": "1.0.0",
+  "description": "a command line tool to search and open saved bookmarks",
+  "bin": "./index.js",
+  "keywords": [
+    "cli",
+    "tag",
+    "websites",
+    "ini",
+    "search",
+    "bookmark"
+  ],
+  "author": "cbbfcd",
+  "license": "MIT",
+  "homepage": "https://github.com/cbbfcd/igoogle#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbbfcd/igoogle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cbbfcd/igoogle/issues"
+  },
+  "dependencies": {
+    "commander": "^4.1.1",
+    "ini": "^1.3.5",
+    "kleur": "^3.0.3",
+    "open": "^7.0.2"
+  }
+}
