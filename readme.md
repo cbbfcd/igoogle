@@ -19,41 +19,41 @@ npm i igoogle --g
 
 it's super simple to use. here are some practical scenarios.
 
-**for bookmark**
+### **for bookmark**
 
-### open one bookmark in optional browser, default is chrome.
+#### open one bookmark in optional browser, default is chrome.
 
 ```shell
 igoogle open react
 ```
 
-### add one bookmark in your igoogle config file.
+#### add one bookmark in your igoogle config file.
 
 ```shell
 igoogle add react https://zh-hans.reactjs.org/
 ```
 
-### rename one bookmark to a new name.
+#### rename one bookmark to a new name.
 
 ```shell
 igoogle rename react reactjs
 ```
 
-### delete one bookmark by bookmark name.
+#### delete one bookmark by bookmark name.
 
 ```shell
 igoogle del reactjs
 ```
 
-### ls all the bookmark
+#### ls all the bookmark
 
 ```shell
 igoogle ls
 ```
 
-**for google search**
+### **for google search**
 
-### search question via google.
+#### search question via google.
 
 ```shell
 igoogle s some question
