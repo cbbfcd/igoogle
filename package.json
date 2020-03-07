@@ -1,6 +1,6 @@
 {
   "name": "igoogle",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a command line tool to search and open saved bookmarks",
   "bin": "./index.js",
   "keywords": [

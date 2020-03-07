@@ -17,6 +17,10 @@ npm i igoogle
 npm i igoogle --g
 ```
 
+## clis
+
+![3jLEF0.png](https://s2.ax1x.com/2020/03/07/3jLEF0.png)
+
 it's super simple to use. here are some practical scenarios.
 
 ### **for bookmark**
