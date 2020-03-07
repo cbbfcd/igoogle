@@ -133,8 +133,8 @@ function onOpen(name, browser) {
 
 function onSearch(question, others) {
   if (!question) return;
-  others.unshift(question);
-  let args = ['https://www.google.com/search?q=' + others.join('')];
+  question = question + ' ' + others.join(' ');
+  let args = ['https://www.google.com/search?q=' + question];
   open.apply(null, args);
 }
 
