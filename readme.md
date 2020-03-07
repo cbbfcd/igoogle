@@ -4,7 +4,7 @@
 
 ## why
 
-When I write code, the terminal window that is closest to me is always the closest. 
+When I write code, the terminal window that is closest to me. 
 Whenever I need to query a document or a certain question, I need to open the browser and enter the content to query. 
 If all this can be done through the CLI command That's a great thing to do, so referring to nrm's code, this simple tool was born.
 
