@@ -5,9 +5,11 @@ const fs = require("fs");
 const ini = require("ini");
 const open = require("open");
 const program = require("commander");
-const { red, yellow, green, cyan } = require("kleur");
+const { print, printErr, line } = require('./utils');
+const { readClipBoardAndTriggerCallBack } = require('./clipboard');
 
 const PKG = require("./package.json");
+const DUMMY_PNG = './dummy.png';
 const IGOOGLERC = path.join(process.env.HOME, ".igooglerc");
 
 program.version(PKG.version);
@@ -41,8 +43,13 @@ program
 program
   .command('search <question> [others...]')
   .alias('s')
-  .description('search question by google')
+  .description('Search question by google')
   .action(onSearch);
+
+program
+  .command('ocr')
+  .description('OCR via your clipboard image')
+  .action(onOcr);
 
 program
   .command("help", { isDefault: true })
@@ -79,7 +86,7 @@ function onAdd(name, url) {
 
   bookmarks[name] = url;
   setCustomBookMark(bookmarks, function(err) {
-    if (err) exit(err);
+    if (err) exit(err, 'exec add');
     print(['', '    add bookmark ' + name + ' success', '']);
   });
 }
@@ -90,7 +97,7 @@ function onDel(name) {
 
   delete bookmarks[name];
   setCustomBookMark(bookmarks, function(err) {
-    if (err) exit(err);
+    if (err) exit(err, 'exec del');
     print(['', '    del bookmark ' + name + ' success', '']);
   });
 }
@@ -99,11 +106,11 @@ function onRename(originalName, newName) {
   if (!newName || !originalName || originalName === newName) return;
   const bookmarks = getBookMarksFromFile(IGOOGLERC);
   if (!bookmarks.hasOwnProperty(originalName)) {
-    printErr(originalName + 'can not be found');
+    printErr('bookmark ' + originalName + ' can not be found', 'exec rename');
     return;
   };
   if (bookmarks.hasOwnProperty(newName)) {
-    printErr(newName + 'already exists');
+    printErr('bookmark ' + newName + ' already exists', 'exec rename');
     return;
   };
 
@@ -113,7 +120,7 @@ function onRename(originalName, newName) {
   bookmarks[newName] = original;
 
   setCustomBookMark(bookmarks, function(err) {
-    if (err) exit(err);
+    if (err) exit(err, 'exec rename');
     print(['', '    rename bookmark ' + originalName + ' to ' + newName + ' success', '']);
   });
 }
@@ -138,9 +145,12 @@ function onSearch(question, others) {
   open.apply(null, args);
 }
 
-function line(str, len) {
-  var line = new Array(Math.max(1, len - str.length)).join("-");
-  return " " + line + " ";
+function onOcr() {
+  // readClipBoardAndTriggerCallBack(DUMMY_PNG, function(img, res) {
+  //   if (!Buffer.isBuffer(res) || res.toString().trim() === 'no image') return;
+    
+  //   // TODO: base64 and ocr
+  // });
 }
 
 function setCustomBookMark(cfg, cb) {
@@ -153,23 +163,8 @@ function getBookMarksFromFile(filepath) {
     : {};
 }
 
-function print(infos) {
-  console.log(
-    yellow()
-      .bold()
-      .underline("[igoogle]:")
-  );
-
-  infos.forEach(info => {
-    console.log(green(info));
-  });
-}
-
-function printErr (err) {
-  console.error(red('[igoogle] an error occured:') + err);
-}
-
-function exit (err) {
-  printErr(err);
+function exit (err, when, cb) {
+  printErr(err, when);
+  cb && cb();
   process.exit(1);
 }
