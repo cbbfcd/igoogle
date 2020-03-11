@@ -6,10 +6,11 @@ const ini = require("ini");
 const open = require("open");
 const program = require("commander");
 const { print, printErr, line } = require('./utils');
-const { readClipBoardAndTriggerCallBack } = require('./clipboard');
+const clipboardy = require('clipboardy');
+//const { readClipBoardAndTriggerCallBack } = require('./clipboard');
 
 const PKG = require("./package.json");
-const DUMMY_PNG = './dummy.png';
+//const DUMMY_PNG = './dummy.png';
 const IGOOGLERC = path.join(process.env.HOME, ".igooglerc");
 
 program.version(PKG.version);
@@ -41,7 +42,7 @@ program
   .action(onOpen);
 
 program
-  .command('search <question> [others...]')
+  .command('search [question...]')
   .alias('s')
   .description('Search question by google')
   .action(onSearch);
@@ -138,10 +139,14 @@ function onOpen(name, browser) {
   }
 }
 
-function onSearch(question, others) {
-  if (!question) return;
-  question = question + ' ' + others.join(' ');
-  let args = ['https://www.google.com/search?q=' + question];
+function onSearch(question) {
+  const cp = clipboardy.readSync();
+  if (!cp && !question.length) return;
+  let query = '';
+  if (cp && !question.length) query = cp;
+  if (question.length) query = question.join(' ');
+  
+  let args = ['https://www.google.com/search?q=' + query];
   open.apply(null, args);
 }
 

@@ -63,6 +63,10 @@ igoogle ls
 igoogle s some question
 
 igoogle search some question
+
+# or just ctrl + c a question, and exec igoogle s
+# it's useful when you have a trouble,you can ctrl+v the error msg, and search it quickly
+igoogle s
 ```
 
 ## license
